@@ -4,17 +4,33 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header.component';
+import { HomeComponent } from './home/home.component';
+import { ShowcaseComponent } from './showcase/showcase.component';
+import {routing} from './app.routes';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselModule } from 'ng2-bootstrap/carousel';
+import { ShowcaseItemsComponent } from './showcase/showcase-items.component';
+
+import {VehicleService} from './showcase/vehicle.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    ShowcaseComponent,
+    CarouselComponent,
+    ShowcaseItemsComponent
   ],
   imports: [
+    CarouselModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
-  providers: [],
+  providers: [VehicleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
