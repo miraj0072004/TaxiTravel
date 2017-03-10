@@ -1,8 +1,15 @@
 <div class="row" id="vehicles">
 	
 		
-			<div class="col-xs-6 col-sm-4" *ngFor="let vehicle of vehicles;">
+			<!-- <div class="col-xs-6 col-sm-4" *ngFor="let vehicle of vehicles;">
 				<img class="img-responsive" src={{vehicle.imagePath}} alt="Our Vehicle">
+			</div> -->
+
+			<div class="container col-xs-6 col-sm-4" *ngFor="let vehicle of vehicles;">
+			  <img src={{vehicle.imagePath}} style="height:230px" alt="Our Vehicle" class="img-responsive">
+			  <div class="overlay">
+			    <div class="text">{{vehicle.description}}</div>
+			  </div>
 			</div>			
 				
 	

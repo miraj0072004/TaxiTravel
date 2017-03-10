@@ -13,6 +13,7 @@ import { CarouselModule } from 'ng2-bootstrap/carousel';
 import { ShowcaseItemsComponent } from './showcase/showcase-items.component';
 
 import {VehicleService} from './showcase/vehicle.service';
+import { StaffComponent } from './staff/staff.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {VehicleService} from './showcase/vehicle.service';
     HomeComponent,
     ShowcaseComponent,
     CarouselComponent,
-    ShowcaseItemsComponent
+    ShowcaseItemsComponent,
+    StaffComponent
   ],
   imports: [
     CarouselModule.forRoot(),
