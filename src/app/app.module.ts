@@ -14,6 +14,7 @@ import { ShowcaseItemsComponent } from './showcase/showcase-items.component';
 
 import {VehicleService} from './showcase/vehicle.service';
 import { StaffComponent } from './staff/staff.component';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StaffComponent } from './staff/staff.component';
     ShowcaseComponent,
     CarouselComponent,
     ShowcaseItemsComponent,
-    StaffComponent
+    StaffComponent,
+    BookingComponent
   ],
   imports: [
     CarouselModule.forRoot(),
