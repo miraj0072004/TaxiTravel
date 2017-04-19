@@ -64,6 +64,8 @@ export class BookingComponent implements OnInit {
           map: this.map,
           anchorPoint: new google.maps.Point(0, -29)
         });
+
+
     var me =this;
     //listener to start location
     autocompleteStart.addListener('place_changed', function() {
@@ -121,6 +123,12 @@ export class BookingComponent implements OnInit {
         }, function(response, status) {
           if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
+            //me.directionsDisplay.setPanel(document.getElementById('detail-panel'));
+            var distance = document.createTextNode(response.routes[0].legs[0].distance.text);
+            var duration = document.createTextNode(response.routes[0].legs[0].duration.text); 
+            document.getElementById('detail-panel').appendChild(distance);
+            document.getElementById('detail-panel').appendChild(duration);
+
           } else {
             window.alert('Directions request failed due to ' + status);          }
         });

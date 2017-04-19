@@ -9,3 +9,5 @@
         margin: 0;
         padding: 0;
       }
+
+      .detailPanel { border: 1px solid black; padding: 5px; margin: 5px;}

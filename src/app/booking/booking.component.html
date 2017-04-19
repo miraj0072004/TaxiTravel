@@ -4,9 +4,36 @@
 <!-- <iframe class="col-xs-12" height="600" frameborder="0" style="border:0"
 src="https://www.google.com/maps/embed/v1/place?q=sri+lanka&key=AIzaSyDBFw3IBOoNS2kH_rhNfdyKL2vDyp44fHs" allowfullscreen></iframe>
  -->
- <input type="text" id="startLocation" placeholder="Start Location">
- <input type="text" id="destination" placeholder="Destination">
+ <!-- <input type="text" id="startLocation" placeholder="Start Location">
+ <input type="text" id="destination" placeholder="Destination"> -->
+
+ <form class="form-inline">
+    <div class="form-group">
+        <label for="startLocation" class="sr-only">
+            Start 
+        </label>
+        <input type="text" class="form-control"
+            id="startLocation" placeholder="Start" ngModel name="startLocation">
+    </div>
+
+    <div class="form-group">
+        <label
+            for="destination" class="sr-only">Destination</label>
+        <input type="text" class="form-control"
+            id="destination" placeholder="Destination" ngModel name="destination">
+    </div>
+
+    <button type="submit"
+        class="btn btn-default">Make Booking
+    </button>
+
+</form>
  <br><br>
-<div id="map"></div>
+<div id="detail-panel" class="detailPanel">
+	<h3> Select your Start and Destination locations above to get details about your journey</h3>
+</div>	
+<div id="map">
+	
+</div>
 
     
