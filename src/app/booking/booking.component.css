@@ -1,13 +1,21 @@
  /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 700px;
-      }
+#map {
+        height: 480px;
+     }
       /* Optional: Makes the sample page fill the window. */
-      html, body {
+html, body {
         height: 100%;
         margin: 0;
         padding: 0;
       }
 
-      .detailPanel { border: 1px solid black; padding: 5px; margin: 5px;}
+.detailPanel { border: 1px solid black; padding: 5px; margin: 5px;}
+
+.map { margin-top: 20px}
+
+.well-lg {
+            padding-top: 10px;           
+            height: 132px;
+        }
+

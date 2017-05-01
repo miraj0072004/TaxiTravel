@@ -1,38 +1,87 @@
-<p>
-  booking works!
-</p>
+
 <!-- <iframe class="col-xs-12" height="600" frameborder="0" style="border:0"
 src="https://www.google.com/maps/embed/v1/place?q=sri+lanka&key=AIzaSyDBFw3IBOoNS2kH_rhNfdyKL2vDyp44fHs" allowfullscreen></iframe>
  -->
  <!-- <input type="text" id="startLocation" placeholder="Start Location">
  <input type="text" id="destination" placeholder="Destination"> -->
 
- <form class="form-inline">
-    <div class="form-group">
-        <label for="startLocation" class="sr-only">
-            Start 
-        </label>
-        <input type="text" class="form-control"
-            id="startLocation" placeholder="Start" ngModel name="startLocation">
+ <form class="col-xs-6"  #f="ngForm">
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="startLocation" class="sr-only">
+                Start 
+            </label>
+            <input type="text" class="form-control"
+                id="startLocation" placeholder="Start" ngModel name="startLocation" required>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <label
+                for="destination" class="sr-only">Destination</label>
+            <input type="text" class="form-control"
+                id="destination" placeholder="Destination" ngModel name="destination" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="hours" class="sr-only">
+                Start 
+            </label>
+            <input type="number" class="form-control"
+                id="hours" placeholder="Hours" ngModel name="hours" min="0" max="8" title="Waiting Hours" >
+        </div>
+        <div class="form-group col-xs-3">
+            <label for="minutes" class="sr-only">
+                Start 
+            </label>
+            <input type="number" class="form-control"
+                id="minutes" placeholder="Minutes" ngModel name="minutes" min="0" max="60" step="15" title="Waiting Minutes">
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="telephone" class="sr-only">
+                Start 
+            </label>
+            <input type="tel" pattern="\d{10}" class="form-control"
+                id="telephone" placeholder="Contact Number (ex: 0112345678)" ngModel name="telephone" title="Contact Number" required>
+        </div>     
     </div>
 
-    <div class="form-group">
-        <label
-            for="destination" class="sr-only">Destination</label>
-        <input type="text" class="form-control"
-            id="destination" placeholder="Destination" ngModel name="destination">
+    <div class="row">
+        <div *ngFor="let o of options" class="col-xs-3">
+            <label >
+              <input type="radio"
+                     name="option"
+                     [value]="o"
+                     ngModel
+                     required                
+                     >
+                     {{o}}
+            </label>
+        </div>
+        <div class="col-xs-6">
+            <button type="submit"
+                class="btn btn-block btn-primary" [disabled]="!f.valid">Make Booking
+            </button>
+        </div>
     </div>
-
-    <button type="submit"
-        class="btn btn-default">Make Booking
-    </button>
 
 </form>
- <br><br>
-<div id="detail-panel" class="detailPanel">
-	<h3> Select your Start and Destination locations above to get details about your journey</h3>
-</div>	
-<div id="map">
+<div id="detail-panel" class="col-xs-6 well well-lg">
+	<strong> Your Journey Details</strong>
+    
+    <!-- <h6>Journey under 100 km - Every km : Rs 35 </h6>
+    <h6>Journey over 100 km - First 100 km : 6 5000 </h6>
+    <h6>Every additional km : Rs 20 </h6>
+    <h6>Waiting : per minute Rs 1  </h6> -->
+    <br>    
+    <!-- <p [textContent]="journeyInformation"></p> -->
+    <!-- <p>{{journeyInformation}}</p> -->
+    <div id="journeyInfo" ></div>
+
+
+</div>
+	
+<div id="map" class="col-xs-12 map">
 	
 </div>
 

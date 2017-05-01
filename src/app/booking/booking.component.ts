@@ -1,14 +1,17 @@
 declare var google: any;
 declare var window: any;
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnChanges,DoCheck,ViewChild,ElementRef  } from '@angular/core';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
-export class BookingComponent implements OnInit {
 
+
+export class BookingComponent implements OnInit,OnChanges,DoCheck {
+
+ 
   private map;
   private country = "SriLanka";
   private geocoder;
@@ -16,16 +19,21 @@ export class BookingComponent implements OnInit {
   private directionsDisplay;
   private originPlaceId: any;
   private destinationPlaceId: any;
-  //private route: any;  
+  private journeyInformation;
+  //private route: any; 
+
+  options =["one way","two way"]; 
+   @ViewChild('journeyInfo') journeyInfo:ElementRef;
 
   constructor() { }
 
   ngOnInit() {
+    console.log("OnInit");
 
      //this.geocoder = new google.maps.Geocoder(); 
   	 this.map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 7.873054, lng: 80.771797},
-          zoom: 8
+          zoom: 7
         });
      //new AutocompleteDirectionsHandler(this.map);
      // var defaultBounds=new google.maps.LatLngBounds(
@@ -53,17 +61,17 @@ export class BookingComponent implements OnInit {
         this.directionsDisplay.setMap(this.map);
 
 
-  //create a marker for start
-  var markerStart = new google.maps.Marker({
-          map: this.map,
-          anchorPoint: new google.maps.Point(0, -29)
-        });
+  // //create a marker for start
+  // var markerStart = new google.maps.Marker({
+  //         map: this.map,
+  //         anchorPoint: new google.maps.Point(0, -29)
+  //       });
 
-  //create a marker for destination
-  var markerDestination = new google.maps.Marker({
-          map: this.map,
-          anchorPoint: new google.maps.Point(0, -29)
-        });
+  // //create a marker for destination
+  // var markerDestination = new google.maps.Marker({
+  //         map: this.map,
+  //         anchorPoint: new google.maps.Point(0, -29)
+  //       });
 
 
     var me =this;
@@ -105,12 +113,12 @@ export class BookingComponent implements OnInit {
           //markerDestination.setVisible(true);
           me.destinationPlaceId=place.place_id;
           me.router(me.originPlaceId,me.destinationPlaceId);
-          });
+    });
 
 
   }
 
-   private router(originPlaceId,destinationPlaceId) {
+      private router(originPlaceId,destinationPlaceId) {
         if (!this.originPlaceId || !this.destinationPlaceId) {
           return;
         }
@@ -124,14 +132,84 @@ export class BookingComponent implements OnInit {
           if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
             //me.directionsDisplay.setPanel(document.getElementById('detail-panel'));
-            var distance = document.createTextNode(response.routes[0].legs[0].distance.text);
-            var duration = document.createTextNode(response.routes[0].legs[0].duration.text); 
-            document.getElementById('detail-panel').appendChild(distance);
-            document.getElementById('detail-panel').appendChild(duration);
+            // var distance  = document.createTextNode(response.routes[0].legs[0].distance.text);
+            // var duration  = document.createTextNode(response.routes[0].legs[0].duration.text); 
+            //document.getElementById('detail-panel').appendChild(distance);
+            //document.getElementById('detail-panel').appendChild(duration);
+
+            //me.journeyDetails(response.routes[0].legs[0].distance.text, response.routes[0].legs[0].duration.text);
+        var distance= response.routes[0].legs[0].distance.text;
+        var duration= response.routes[0].legs[0].duration.text;
+           
+        var tempDistance=distance.substring (0,distance.indexOf(" km"));
+        var numDistance=+tempDistance;
+        var totalCost=0;
+
+        if (numDistance > 100) {
+          totalCost=5000 + (numDistance-100)*20;
+        }
+        else
+        {
+          totalCost=numDistance* 35;
+        }
+
+        me.journeyInformation=" Your total estimated cost would be Rs " +totalCost +" and your journey distance is "+distance+
+           " which will have an estimated duration of "+ duration +". Please mind that these are rough values"
+          +" calculated based on the given details and could be subject to minor changes depending on the circumstances.";
+
+        // me.journeyInformation=new Promise ((resolve,reject)=>{resolve
+        //   (" Your total estimated cost would be Rs " +totalCost +" and your journey distance is "+distance+
+        //    " which will have an estimated duration of "+ duration +". Please mind that these are rough values"
+        //   +" calculated based on the given details and could be subject to minor changes depending on the circumstances.")});
+
+        //" Your total estimated cost would be Rs " +totalCost +" and your journey distance is "+distance+" which will have an estimated duration of "+ duration +". Please mind that these values are rough values calculated based on the given details and could be subject to minor changes depending on the circumstances."
+        var line = document.createElement("p");
+        line.innerHTML =me.journeyInformation;
+        // this.journeyInfo.innerHTML(me.journeyInformation);
+
+        var parent=document.getElementById("journeyInfo");
+        var child= parent.childNodes[0];
+        
+        // this.journeyInfo.nativeElement.insertAdjacentHTML('beforeend',me.journeyInformation);
+        if (child)
+        {
+          parent.removeChild(parent.childNodes[0]);
+        }
+          
+          parent.appendChild( line);
+          
 
           } else {
             window.alert('Directions request failed due to ' + status);          }
         });
+      }
+
+      private journeyDetails(distance : string, duration : string)
+      {
+        var tempDistance=distance.substring (0,distance.indexOf(" km"));
+        var numDistance=+tempDistance;
+        var totalCost=0;
+
+        if (numDistance > 100) {
+          totalCost=5000 + (numDistance-100)*20;
+        }
+        else
+        {
+          totalCost=numDistance* 35;
+        }
+
+        this.journeyInformation=" Your total estimated cost would be Rs " +totalCost +" and your journey distance is "+distance+" which will have an estimated duration of "+ duration +". Please mind that these values are rough values calculated based on the given details and could be subject to minor changes depending on the circumstances.";
+        document.getElementById('journeyInformation').appendChild(this.journeyInformation);
+      } 
+
+      ngOnChanges ()
+      {
+        console.log("On Changes");
+      }
+
+      ngDoCheck()
+      {
+        console.log("Do Check");
       }
   
 
